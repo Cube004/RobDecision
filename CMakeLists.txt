@@ -14,6 +14,8 @@ find_package(catkin REQUIRED COMPONENTS
   roborts_msgs
 )
 find_package(Qt5Widgets REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(JSONCPP REQUIRED jsoncpp)
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
@@ -118,6 +120,8 @@ catkin_package(
 ## Your package locations should be listed before other locations
 include_directories(
   include
+  include/decison
+  include/decison/rules
   ${catkin_INCLUDE_DIRS}
   ${Qt5Widgets_INCLUDE_DIRS}
   ${Qt5Core_INCLUDE_DIRS}
@@ -126,7 +130,9 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/decison.cpp
+#   src/${PROJECT_NAME}/include/decison/decison.hpp
+#   src/${PROJECT_NAME}/include/decison/rules/rules.hpp
+#   src/${PROJECT_NAME}/include/decison/rules/graph.hpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -156,6 +162,8 @@ add_executable(${PROJECT_NAME}_gui src/gui.cpp)
 ## Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME}_node
   ${catkin_LIBRARIES}
+  ${JSONCPP_LIBRARIES}
+  jsoncpp
 )
 
 target_link_libraries(${PROJECT_NAME}_gui

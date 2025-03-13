@@ -1,0 +1,3529 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DEBUG_PAGE</class>
+ <widget class="QMainWindow" name="DEBUG_PAGE">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1920</width>
+    <height>1080</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1920</width>
+    <height>1080</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1920</width>
+    <height>1080</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <family>微软雅黑</family>
+    <weight>75</weight>
+    <bold>true</bold>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="layoutDirection">
+   <enum>Qt::LeftToRight</enum>
+  </property>
+  <property name="iconSize">
+   <size>
+    <width>40</width>
+    <height>40</height>
+   </size>
+  </property>
+  <property name="toolButtonStyle">
+   <enum>Qt::ToolButtonFollowStyle</enum>
+  </property>
+  <property name="animated">
+   <bool>true</bool>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="minimumSize">
+    <size>
+     <width>1920</width>
+     <height>1080</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>1920</width>
+     <height>1080</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(240, 240, 240);</string>
+   </property>
+   <widget class="QWidget" name="progress_bar" native="true">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>350</y>
+      <width>800</width>
+      <height>320</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(243, 246, 249);
+border-radius: 25px;
+</string>
+    </property>
+    <widget class="QWidget" name="verticalLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>801</width>
+       <height>321</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="progress_bar_QV">
+      <property name="spacing">
+       <number>5</number>
+      </property>
+      <property name="sizeConstraint">
+       <enum>QLayout::SetDefaultConstraint</enum>
+      </property>
+      <property name="leftMargin">
+       <number>20</number>
+      </property>
+      <property name="topMargin">
+       <number>20</number>
+      </property>
+      <property name="rightMargin">
+       <number>20</number>
+      </property>
+      <property name="bottomMargin">
+       <number>20</number>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" name="progress_stage_remain_time_bar">
+        <property name="spacing">
+         <number>25</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="progress_stage_remain_time_bar_title">
+          <property name="font">
+           <font>
+            <family>黑体</family>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(145, 146, 152);</string>
+          </property>
+          <property name="text">
+           <string>剩余时间</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="progress_stage_remain_time_bar_value">
+          <property name="font">
+           <font>
+            <family>黑体</family>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QProgressBar {
+    border: 1px solid #e6e9eb; /* 边框颜色 */
+    border-radius: 10px;    /* 圆角 */
+    background: #e6e9eb;       /* 背景颜色 */
+    text-align: center;     /* 文字居中 */
+    color: #ffffff;            /* 文字颜色 */
+    height: 20px;           /* 高度 */
+}
+
+QProgressBar::chunk {
+    background: qlineargradient(
+        spread: repeat,
+        x1: 0, y1: 0, x2: 1, y2: 1,
+        stop: 0 #7FB0FF,
+        stop: 0.5 #7FB0FF,
+        stop: 1 #7FB0FF
+    );
+    border-radius: 8px; /* 与父容器的圆角保持一致 */
+    margin: 1px;        /* 增加进度条块的间距 */
+}
+</string>
+          </property>
+          <property name="maximum">
+           <number>500</number>
+          </property>
+          <property name="value">
+           <number>345</number>
+          </property>
+          <property name="textVisible">
+           <bool>true</bool>
+          </property>
+          <property name="format">
+           <string>%v</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="progress_own_robot_HP_bar">
+        <property name="spacing">
+         <number>25</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="progress_own_robot_HP_bar_title">
+          <property name="font">
+           <font>
+            <family>黑体</family>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(145, 146, 152);</string>
+          </property>
+          <property name="text">
+           <string>哨兵血量</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="progress_own_robot_HP_bar_value">
+          <property name="font">
+           <font>
+            <family>黑体</family>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QProgressBar {
+    border: 1px solid #e6e9eb; /* 边框颜色 */
+    border-radius: 10px;    /* 圆角 */
+    background: #e6e9eb;       /* 背景颜色 */
+    text-align: center;     /* 文字居中 */
+    color: #ffffff;            /* 文字颜色 */
+    height: 20px;           /* 高度 */
+}
+
+QProgressBar::chunk {
+    background: qlineargradient(
+        spread: repeat,
+        x1: 0, y1: 0, x2: 1, y2: 1,
+        stop: 0 #00C18B,
+        stop: 0.5 #00C18B,
+        stop: 1 #00C18B
+    );
+    border-radius: 8px; /* 与父容器的圆角保持一致 */
+    margin: 1px;        /* 增加进度条块的间距 */
+}
+</string>
+          </property>
+          <property name="maximum">
+           <number>600</number>
+          </property>
+          <property name="value">
+           <number>555</number>
+          </property>
+          <property name="textVisible">
+           <bool>true</bool>
+          </property>
+          <property name="format">
+           <string>%v</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="progress_own_base_HP_bar">
+        <property name="spacing">
+         <number>25</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="progress_own_base_HP_bar_title">
+          <property name="font">
+           <font>
+            <family>黑体</family>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(145, 146, 152);</string>
+          </property>
+          <property name="text">
+           <string>己方基地</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="progress_own_base_HP_bar_value">
+          <property name="font">
+           <font>
+            <family>黑体</family>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QProgressBar {
+    border: 1px solid #e6e9eb; /* 边框颜色 */
+    border-radius: 10px;    /* 圆角 */
+    background: #e6e9eb;       /* 背景颜色 */
+    text-align: center;     /* 文字居中 */
+    color: #ffffff;            /* 文字颜色 */
+    height: 20px;           /* 高度 */
+}
+
+QProgressBar::chunk {
+    background: qlineargradient(
+        spread: repeat,
+        x1: 0, y1: 0, x2: 1, y2: 1,
+        stop: 0 #0F72EF,
+        stop: 0.5 #0F72EF,
+        stop: 1 #0F72EF
+    );
+    border-radius: 8px; /* 与父容器的圆角保持一致 */
+    margin: 1px;        /* 增加进度条块的间距 */
+}
+</string>
+          </property>
+          <property name="maximum">
+           <number>1600</number>
+          </property>
+          <property name="value">
+           <number>1400</number>
+          </property>
+          <property name="textVisible">
+           <bool>true</bool>
+          </property>
+          <property name="format">
+           <string>%v</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="progress_enemy_base_HP_bar">
+        <property name="spacing">
+         <number>25</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="progress_enemy_base_HP_bar_title">
+          <property name="font">
+           <font>
+            <family>黑体</family>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(145, 146, 152);</string>
+          </property>
+          <property name="text">
+           <string>敌方基地</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="progress_enemy_base_HP_bar_value">
+          <property name="font">
+           <font>
+            <family>黑体</family>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QProgressBar {
+    border: 1px solid #e6e9eb; /* 边框颜色 */
+    border-radius: 10px;    /* 圆角 */
+    background: #e6e9eb;       /* 背景颜色 */
+    text-align: center;     /* 文字居中 */
+    color: #ffffff;            /* 文字颜色 */
+    height: 20px;           /* 高度 */
+}
+
+QProgressBar::chunk {
+    background: qlineargradient(
+        spread: repeat,
+        x1: 0, y1: 0, x2: 1, y2: 1,
+        stop: 0 #FF5169,
+        stop: 0.5 #FF5169,
+        stop: 1 #FF5169
+    );
+    border-radius: 8px; /* 与父容器的圆角保持一致 */
+    margin: 1px;        /* 增加进度条块的间距 */
+}
+</string>
+          </property>
+          <property name="maximum">
+           <number>1600</number>
+          </property>
+          <property name="value">
+           <number>900</number>
+          </property>
+          <property name="textVisible">
+           <bool>true</bool>
+          </property>
+          <property name="format">
+           <string>%v</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="progress_shoot_num_bar">
+        <property name="spacing">
+         <number>25</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="progress_shoot_num_bar_title">
+          <property name="font">
+           <font>
+            <family>黑体</family>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(145, 146, 152);</string>
+          </property>
+          <property name="text">
+           <string>子弹数量</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="progress_shoot_num_bar_value">
+          <property name="font">
+           <font>
+            <family>黑体</family>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QProgressBar {
+    border: 1px solid #e6e9eb; /* 边框颜色 */
+    border-radius: 10px;    /* 圆角 */
+    background: #e6e9eb;       /* 背景颜色 */
+    text-align: center;     /* 文字居中 */
+    color: #ffffff;            /* 文字颜色 */
+    height: 20px;           /* 高度 */
+}
+
+QProgressBar::chunk {
+    background: qlineargradient(
+        spread: repeat,
+        x1: 0, y1: 0, x2: 1, y2: 1,
+        stop: 0 #FED572,
+        stop: 0.5 #FED572,
+        stop: 1 #FED572
+    );
+    border-radius: 8px; /* 与父容器的圆角保持一致 */
+    margin: 1px;        /* 增加进度条块的间距 */
+}
+</string>
+          </property>
+          <property name="maximum">
+           <number>600</number>
+          </property>
+          <property name="value">
+           <number>80</number>
+          </property>
+          <property name="textVisible">
+           <bool>true</bool>
+          </property>
+          <property name="format">
+           <string>%v</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="progress_nav_state">
+        <property name="spacing">
+         <number>25</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="progress_nav_state_title">
+          <property name="font">
+           <font>
+            <family>黑体</family>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(145, 146, 152);</string>
+          </property>
+          <property name="text">
+           <string>导航进度</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="progress_nav_state_value">
+          <property name="font">
+           <font>
+            <family>黑体</family>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QProgressBar {
+    border: 1px solid #e6e9eb; /* 边框颜色 */
+    border-radius: 10px;    /* 圆角 */
+    background: #e6e9eb;       /* 背景颜色 */
+    text-align: center;     /* 文字居中 */
+    color: #ffffff;            /* 文字颜色 */
+    height: 20px;           /* 高度 */
+}
+
+QProgressBar::chunk {
+    background: qlineargradient(
+        spread: repeat,
+        x1: 0, y1: 0, x2: 1, y2: 1,
+        stop: 0 #B58BE5,
+        stop: 0.5 #B58BE5,
+        stop: 1 #B58BE5
+    );
+    border-radius: 8px; /* 与父容器的圆角保持一致 */
+    margin: 1px;        /* 增加进度条块的间距 */
+}
+</string>
+          </property>
+          <property name="maximum">
+           <number>100</number>
+          </property>
+          <property name="value">
+           <number>68</number>
+          </property>
+          <property name="textVisible">
+           <bool>true</bool>
+          </property>
+          <property name="format">
+           <string>%p%</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="home" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>990</y>
+      <width>1920</width>
+      <height>100</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(243, 246, 249);
+
+</string>
+    </property>
+    <widget class="QWidget" name="horizontalLayoutWidget_12">
+     <property name="geometry">
+      <rect>
+       <x>-1</x>
+       <y>-1</y>
+       <width>1921</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="home_QH">
+      <item>
+       <widget class="QPushButton" name="home_page">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    border: none;          /* 隐藏边框 */
+    background: none;      /* 隐藏背景 */
+}
+
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>resource/home.png</normaloff>resource/home.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>40</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="rules_page">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    border: none;          /* 隐藏边框 */
+    background: none;      /* 隐藏背景 */
+}
+
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>resource/rules.png</normaloff>resource/rules.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>40</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="debug_page">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    border: none;          /* 隐藏边框 */
+    background: none;      /* 隐藏背景 */
+}
+
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>resource/debug-16.png</normaloff>resource/debug-16.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>40</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="setting_page">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+    border: none;          /* 隐藏边框 */
+    background: none;      /* 隐藏背景 */
+}
+
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>resource/cog.png</normaloff>resource/cog.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>40</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="monitor_board" native="true">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>801</width>
+      <height>311</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(243, 246, 249);
+border-radius: 25px;
+</string>
+    </property>
+    <widget class="QWidget" name="horizontalLayoutWidget_7">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>160</y>
+       <width>751</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="monitor_board_2">
+      <property name="spacing">
+       <number>20</number>
+      </property>
+      <property name="leftMargin">
+       <number>5</number>
+      </property>
+      <property name="topMargin">
+       <number>5</number>
+      </property>
+      <property name="rightMargin">
+       <number>5</number>
+      </property>
+      <property name="bottomMargin">
+       <number>5</number>
+      </property>
+      <item>
+       <widget class="QWidget" name="monitor_task_id_QW" native="true">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(240, 240, 240);
+border-radius: 10px;
+</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_9">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>161</width>
+           <height>91</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="monitor_task_id_QV">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>15</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="monitor_task_id_title">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>黑体</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(145, 146, 152);</string>
+            </property>
+            <property name="text">
+             <string>当前任务</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="monitor_task_id_state">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>黑体</family>
+              <pointsize>14</pointsize>
+              <underline>false</underline>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(15, 114, 239);</string>
+            </property>
+            <property name="text">
+             <string>任务编号08</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="monitor_goal_pose_QW" native="true">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(240, 240, 240);
+border-radius: 10px;
+</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_8">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>161</width>
+           <height>91</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="monitor_goal_pose_QV">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>15</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="monitor_goal_pose_title">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>黑体</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(145, 146, 152);</string>
+            </property>
+            <property name="text">
+             <string>航点坐标</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="monitor_goal_pose_state">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>黑体</family>
+              <pointsize>14</pointsize>
+              <underline>false</underline>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(255, 81, 105);</string>
+            </property>
+            <property name="text">
+             <string>3.2 7.6</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="monitor_vision_status_QW" native="true">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(240, 240, 240);
+border-radius: 10px;
+</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_3">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>161</width>
+           <height>91</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="monitor_vision_status_QV">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>15</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="monitor_vision_status_title">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>黑体</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(145, 146, 152);</string>
+            </property>
+            <property name="text">
+             <string>视觉状态</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="monitor_vision_status_sate">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>黑体</family>
+              <pointsize>14</pointsize>
+              <underline>false</underline>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(255, 81, 105);</string>
+            </property>
+            <property name="text">
+             <string>检测到敌方</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="monitor_enemy_pose_QW" native="true">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(240, 240, 240);
+border-radius: 10px;
+</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_10">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>161</width>
+           <height>91</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="monitor_enemy_pose_QV">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>15</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="monitor_enemy_pose_title">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>黑体</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(145, 146, 152);</string>
+            </property>
+            <property name="text">
+             <string>敌方位置</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="monitor_enemy_pose_state">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>黑体</family>
+              <pointsize>14</pointsize>
+              <underline>false</underline>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(15, 114, 239);</string>
+            </property>
+            <property name="text">
+             <string>弧度1.6</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>19</x>
+       <y>30</y>
+       <width>751</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="monitor_board_1">
+      <property name="spacing">
+       <number>20</number>
+      </property>
+      <property name="leftMargin">
+       <number>5</number>
+      </property>
+      <property name="topMargin">
+       <number>5</number>
+      </property>
+      <property name="rightMargin">
+       <number>5</number>
+      </property>
+      <property name="bottomMargin">
+       <number>5</number>
+      </property>
+      <item>
+       <widget class="QWidget" name="monitor_game_progress_QW" native="true">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(240, 240, 240);
+border-radius: 10px;
+</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_5">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>161</width>
+           <height>91</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="monitor_game_progress_QV">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>15</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="monitor_game_progress_title">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>黑体</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(145, 146, 152);</string>
+            </property>
+            <property name="text">
+             <string>比赛状态</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="monitor_game_progress_state">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>黑体</family>
+              <pointsize>14</pointsize>
+              <underline>false</underline>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(0, 193, 139);</string>
+            </property>
+            <property name="text">
+             <string>进行中</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="monitor_HP_deduction_reason_QW" native="true">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(240, 240, 240);
+border-radius: 10px;
+</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_4">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>161</width>
+           <height>91</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="monitor_HP_deduction_reason_QV">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>15</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="monitor_HP_deduction_reason_title">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>黑体</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(145, 146, 152);</string>
+            </property>
+            <property name="text">
+             <string>扣血原因</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="monitor_HP_deduction_reason_state">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>黑体</family>
+              <pointsize>14</pointsize>
+              <underline>false</underline>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(255, 81, 105);</string>
+            </property>
+            <property name="text">
+             <string>装甲板受击</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="monitor_armor_id_QW" native="true">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(240, 240, 240);
+border-radius: 10px;
+</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_6">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>161</width>
+           <height>91</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="monitor_armor_id_QV">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>15</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="monitor_armor_id_title">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>黑体</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(145, 146, 152);</string>
+            </property>
+            <property name="text">
+             <string>受击装甲</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="monitor_armor_id_state">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>黑体</family>
+              <pointsize>14</pointsize>
+              <underline>false</underline>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(255, 81, 105);</string>
+            </property>
+            <property name="text">
+             <string>编号零</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="monitor_event_data_QW" native="true">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(240, 240, 240);
+border-radius: 10px;
+</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_7">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>161</width>
+           <height>92</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="monitor_event_data_QV">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>15</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="monitor_event_data_title">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>黑体</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(145, 146, 152);</string>
+            </property>
+            <property name="text">
+             <string>特殊事件</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="monitor_event_data_state">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>黑体</family>
+              <pointsize>14</pointsize>
+              <underline>false</underline>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(153, 153, 153);</string>
+            </property>
+            <property name="text">
+             <string>无</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QScrollArea" name="logQS">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>700</y>
+      <width>801</width>
+      <height>271</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(243, 246, 249);
+border-radius: 25px;
+</string>
+    </property>
+    <property name="widgetResizable">
+     <bool>true</bool>
+    </property>
+    <widget class="QWidget" name="logQS_QW">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>801</width>
+       <height>271</height>
+      </rect>
+     </property>
+     <widget class="QTextBrowser" name="logQS_LOG_TEXT">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>781</width>
+        <height>251</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>锐字云字库粗圆GBK</family>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QTextBrowser {
+    border: 30px solid transparent; /* 向外扩展 30 像素 */
+    padding: 0px; /* 移除内边距 */
+    border-radius: 25px; /* 圆角 25 像素 */
+    border: 10px solid rgb(240, 240, 240); /* 设置边框颜色和厚度 */
+    background-clip: padding-box; /* 防止背景超出圆角边框 */
+    background-color: rgb(240, 240, 240); /* 设置背景颜色，防止透明 */
+	color: rgb(145, 146, 152);
+}
+
+/* 垂直滚动条 */
+QScrollBar:vertical {
+    background: #f5f5f5; /* 滚动条背景 */
+    width: 12px; /* 滚动条宽度 */
+    margin: 0px 0px 0px 0px; /* 上下、左右的外边距 */
+    border: none; /* 去除滚动条边框 */
+}
+
+/* 滑块 */
+QScrollBar::handle:vertical {
+    background: #7FB0FF; /* 滑块背景颜色 */
+    min-height: 20px; /* 滑块的最小高度 */
+    border-radius: 6px; /* 滑块的圆角 */
+    border: none; /* 防止透明边框干扰 */
+}
+
+/* 鼠标悬停在滑块上的效果 */
+QScrollBar::handle:vertical:hover {
+    background: #0F72EF; /* 滑块悬停时的颜色 */
+}
+
+/* 移除上下箭头 */
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    background: none;
+    border: none;
+    height: 0px;
+}
+
+/* 滚动条槽 */
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: rgb(230, 233, 235); /* 滚动条槽背景 */
+    border-radius: 6px; /* 槽的圆角 */
+}
+
+</string>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'锐字云字库粗圆GBK'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun';&quot;&gt;[ INFO] [1736862284.597786068, 1591.491000000]: odom received!&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun';&quot;&gt;[ WARN] [1736862284.599460312, 1591.492000000]: global_costmap: Pre-Hydro parameter &amp;quot;static_map&amp;quot; unused since &amp;quot;plugins&amp;quot; is provided&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun';&quot;&gt;[ INFO] [1736862284.600168732, 1591.493000000]: global_costmap: Using plugin &amp;quot;static_layer&amp;quot;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun';&quot;&gt;[ INFO] [1736862284.611879741, 1591.502000000]: Requesting the map...&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun';&quot;&gt;[ INFO] [1736862284.816992482, 1591.707000000]: Resizing costmap to 599 X 301 at 0.050000 m/pix&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun';&quot;&gt;[ INFO] [1736862284.917343816, 1591.806000000]: Received a 599 X 301 map at 0.050000 m/pix&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun';&quot;&gt;[ INFO] [1736862284.919314045, 1591.808000000]: global_costmap: Using plugin &amp;quot;obstacle_layer&amp;quot;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun';&quot;&gt;[ INFO] [1736862284.921515204, 1591.810000000]:     Subscribed to Topics: laser_scan_sensor&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun';&quot;&gt;[ INFO] [1736862284.941431773, 1591.829000000]: global_costmap: Using plugin &amp;quot;inflation_layer&amp;quot;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun';&quot;&gt;[ WARN] [1736862284.979031800, 1591.866000000]: local_costmap: Pre-Hydro parameter &amp;quot;static_map&amp;quot; unused since &amp;quot;plugins&amp;quot; is provided&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun';&quot;&gt;[ INFO] [1736862284.979963551, 1591.866000000]: local_costmap: Using plugin &amp;quot;static_layer&amp;quot;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun';&quot;&gt;[ INFO] [1736862284.983346761, 1591.871000000]: Requesting the map...&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun';&quot;&gt;[ INFO] [1736862284.984977924, 1591.872000000]: Resizing costmap to 599 X 301 at 0.050000 m/pix&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun';&quot;&gt;[ INFO] [1736862285.086585258, 1591.973000000]: Received a 599 X 301 map at 0.050000 m/pix&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun';&quot;&gt;[ INFO] [1736862285.089201612, 1591.975000000]: local_costmap: Using plugin &amp;quot;obstacle_layer&amp;quot;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun';&quot;&gt;[ INFO] [1736862285.092764961, 1591.978000000]:     Subscribed to Topics: laser_scan_sensor&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun';&quot;&gt;[ INFO] [1736862285.129995284, 1592.015000000]: Created local_planner base_local_planner/TrajectoryPlannerROS&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun';&quot;&gt;[ INFO] [1736862285.135387563, 1592.018000000]: Sim period is set to 0.05&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="Sim_Data_QW" native="true">
+    <property name="geometry">
+     <rect>
+      <x>1570</x>
+      <y>20</y>
+      <width>321</width>
+      <height>691</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(243, 246, 249);
+border-radius: 25px;
+</string>
+    </property>
+    <widget class="QWidget" name="verticalLayoutWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>140</y>
+       <width>131</width>
+       <height>471</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="Sim_Data_QV_1">
+      <item>
+       <widget class="QWidget" name="Sim_Data_game_progress_QW" native="true">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(240, 240, 240);
+border-radius: 10px;
+</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_16">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>111</width>
+           <height>84</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="Sim_Data_game_progress_QV">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>15</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="Sim_Data_game_progress_title">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>文泉驿微米黑</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(145, 146, 152);</string>
+            </property>
+            <property name="text">
+             <string>比赛状态</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="Sim_Data_game_progress_QL">
+            <property name="font">
+             <font>
+              <family>文泉驿微米黑</family>
+              <pointsize>14</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border: none;          /* 隐藏边框 */
+background-color: rgb(240, 240, 240);
+color: rgb(58, 58, 58);</string>
+            </property>
+            <property name="text">
+             <string>4</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="Sim_Data_own_robot_HP_QW" native="true">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(240, 240, 240);
+border-radius: 10px;
+</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_18">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>111</width>
+           <height>84</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="Sim_Data_own_robot_HP_QV">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>15</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="Sim_Data_own_robot_HP_title">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>文泉驿微米黑</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(145, 146, 152);</string>
+            </property>
+            <property name="text">
+             <string>哨兵血量</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="Sim_Data_own_robot_HP_QL">
+            <property name="font">
+             <font>
+              <family>文泉驿微米黑</family>
+              <pointsize>14</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border: none;          /* 隐藏边框 */
+background-color: rgb(240, 240, 240);
+color: rgb(58, 58, 58);</string>
+            </property>
+            <property name="text">
+             <string>555</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="Sim_Data_enemy_base_HP_QW" native="true">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(240, 240, 240);
+border-radius: 10px;
+</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_15">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>111</width>
+           <height>84</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="Sim_Data_enemy_base_HP_QV">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>15</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="Sim_Data_enemy_base_HP_title">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>文泉驿微米黑</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(145, 146, 152);</string>
+            </property>
+            <property name="text">
+             <string>敌方基地</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="Sim_Data_enemy_base_HP_QL">
+            <property name="font">
+             <font>
+              <family>文泉驿微米黑</family>
+              <pointsize>14</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border: none;          /* 隐藏边框 */
+background-color: rgb(240, 240, 240);
+color: rgb(58, 58, 58);</string>
+            </property>
+            <property name="text">
+             <string>900</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="Sim_Data_HP_deduction_reason_QW" native="true">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(240, 240, 240);
+border-radius: 10px;
+</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_23">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>111</width>
+           <height>84</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="Sim_Data_HP_deduction_reason_QV">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>15</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="Sim_Data_HP_deduction_reason_title">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>文泉驿微米黑</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(145, 146, 152);</string>
+            </property>
+            <property name="text">
+             <string>扣血原因</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="Sim_Data_HP_deduction_reason_QL">
+            <property name="font">
+             <font>
+              <family>文泉驿微米黑</family>
+              <pointsize>14</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border: none;          /* 隐藏边框 */
+background-color: rgb(240, 240, 240);
+color: rgb(58, 58, 58);</string>
+            </property>
+            <property name="text">
+             <string>1</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="Sim_Data_shoot_num_QW" native="true">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(240, 240, 240);
+border-radius: 10px;
+</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_21">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>111</width>
+           <height>84</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="Sim_Data_shoot_num_QV">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>15</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="Sim_Data_shoot_num_title">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>文泉驿微米黑</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(145, 146, 152);</string>
+            </property>
+            <property name="text">
+             <string>子弹数量</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="Sim_Data_shoot_num_QL">
+            <property name="font">
+             <font>
+              <family>文泉驿微米黑</family>
+              <pointsize>14</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border: none;          /* 隐藏边框 */
+background-color: rgb(240, 240, 240);
+color: rgb(58, 58, 58);</string>
+            </property>
+            <property name="text">
+             <string>80</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="verticalLayoutWidget_11">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>140</y>
+       <width>131</width>
+       <height>471</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="Sim_Data_QV_2">
+      <item>
+       <widget class="QWidget" name="Sim_Data_stage_remain_time_QW" native="true">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(240, 240, 240);
+border-radius: 10px;
+</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_17">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>111</width>
+           <height>84</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="Sim_Data_stage_remain_time_QV">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>15</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="Sim_Data_stage_remain_time_title">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>文泉驿微米黑</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(145, 146, 152);</string>
+            </property>
+            <property name="text">
+             <string>剩余时间</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="Sim_Data_stage_remain_time_QL">
+            <property name="font">
+             <font>
+              <family>文泉驿微米黑</family>
+              <pointsize>14</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border: none;          /* 隐藏边框 */
+background-color: rgb(240, 240, 240);
+color: rgb(58, 58, 58);</string>
+            </property>
+            <property name="text">
+             <string>345</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="Sim_Data_vision_status_QW" native="true">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(240, 240, 240);
+border-radius: 10px;
+</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_22">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>111</width>
+           <height>84</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="Sim_Data_vision_status_QV">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>15</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="Sim_Data_vision_status_title">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>文泉驿微米黑</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(145, 146, 152);</string>
+            </property>
+            <property name="text">
+             <string>视觉状态</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="Sim_Data_vision_status_QL">
+            <property name="font">
+             <font>
+              <family>文泉驿微米黑</family>
+              <pointsize>14</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border: none;          /* 隐藏边框 */
+background-color: rgb(240, 240, 240);
+color: rgb(58, 58, 58);</string>
+            </property>
+            <property name="text">
+             <string>1</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="Sim_Data_own_base_HP_QW" native="true">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(240, 240, 240);
+border-radius: 10px;
+</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_19">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>111</width>
+           <height>84</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="Sim_Data_own_base_HP_QV">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>15</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="Sim_Data_own_base_HP_title">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>文泉驿微米黑</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(145, 146, 152);</string>
+            </property>
+            <property name="text">
+             <string>己方基地</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="Sim_Data_own_base_HP_QL">
+            <property name="font">
+             <font>
+              <family>文泉驿微米黑</family>
+              <pointsize>14</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border: none;          /* 隐藏边框 */
+background-color: rgb(240, 240, 240);
+color: rgb(58, 58, 58);</string>
+            </property>
+            <property name="text">
+             <string>1400</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="Sim_Data_event_data_QW" native="true">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(240, 240, 240);
+border-radius: 10px;
+</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_20">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>111</width>
+           <height>84</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="Sim_Data_event_data_QV">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>15</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="Sim_Data_event_data_title">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>文泉驿微米黑</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(145, 146, 152);</string>
+            </property>
+            <property name="text">
+             <string>特殊事件</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="Sim_Data_event_data_QL">
+            <property name="font">
+             <font>
+              <family>文泉驿微米黑</family>
+              <pointsize>14</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border: none;          /* 隐藏边框 */
+background-color: rgb(240, 240, 240);
+color: rgb(58, 58, 58);</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="Sim_Data_armor_id_QW" native="true">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(240, 240, 240);
+border-radius: 10px;
+</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_24">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>111</width>
+           <height>84</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="Sim_Data_armor_id_QV">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>15</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="Sim_Data_armor_id_title">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>文泉驿微米黑</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(145, 146, 152);</string>
+            </property>
+            <property name="text">
+             <string>受击装甲</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="Sim_Data_armor_id_QL">
+            <property name="font">
+             <font>
+              <family>文泉驿微米黑</family>
+              <pointsize>14</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border: none;          /* 隐藏边框 */
+background-color: rgb(240, 240, 240);
+color: rgb(58, 58, 58);</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QLabel" name="Sim_Data_TITLE">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>30</y>
+       <width>201</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <family>文泉驿微米黑</family>
+       <pointsize>24</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(100, 100, 100);</string>
+     </property>
+     <property name="text">
+      <string>模拟数据表</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="Sim_Data_tips">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>100</y>
+       <width>251</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <family>文泉驿微米黑</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(145, 146, 152);</string>
+     </property>
+     <property name="text">
+      <string>说明:可以直接编辑数据进行调试</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Sim_Data_change_QP">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>630</y>
+       <width>281</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>文泉驿微米黑</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    border-radius: 10px; /* 圆角半径 */
+    border: 2px solid rgb(240, 240, 240); /* 默认边框颜色 */
+    background-color: rgb(240, 240, 240); /* 默认背景颜色 */
+    color: rgb(145, 146, 152); /* 默认文字颜色 */
+    padding: 5px 10px; /* 内边距，调整按钮内容位置 */
+}
+
+QPushButton:hover {
+    background-color: rgb(127, 176, 255); /* 鼠标悬停时背景颜色 */
+    color: rgb(15, 114, 239);; /* 悬停时文字颜色 */
+    border-color: rgb(15, 114, 239);; /* 悬停时边框颜色 */
+}
+
+QPushButton:pressed {
+    background-color: rgb(15, 114, 239); /* 按下时背景颜色 */
+    color: white; /* 按下时文字颜色 */
+    border-color: rgb(15, 114, 239); /* 按下时边框颜色 */
+}
+</string>
+     </property>
+     <property name="text">
+      <string>确认</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="DEBUG" native="true">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>20</y>
+      <width>691</width>
+      <height>361</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(243, 246, 249);
+border-radius: 25px;
+</string>
+    </property>
+    <widget class="QLabel" name="DEBUG_TITLE">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>20</y>
+       <width>280</width>
+       <height>60</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <family>文泉驿微米黑</family>
+       <pointsize>24</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(58, 58, 58);</string>
+     </property>
+     <property name="text">
+      <string>决策调试控制台</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget_8">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>90</y>
+       <width>611</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="rules_QH">
+      <property name="spacing">
+       <number>20</number>
+      </property>
+      <property name="leftMargin">
+       <number>5</number>
+      </property>
+      <property name="topMargin">
+       <number>5</number>
+      </property>
+      <property name="rightMargin">
+       <number>5</number>
+      </property>
+      <property name="bottomMargin">
+       <number>5</number>
+      </property>
+      <item>
+       <widget class="QWidget" name="rules_date_QW" native="true">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(240, 240, 240);
+border-radius: 10px;
+</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_12">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>161</width>
+           <height>91</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="rules_date_QV">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>15</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="rules_date_title">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>黑体</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(145, 146, 152);</string>
+            </property>
+            <property name="text">
+             <string>规则日期</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="rules_date_state">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>黑体</family>
+              <pointsize>12</pointsize>
+              <underline>false</underline>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(15, 114, 239);</string>
+            </property>
+            <property name="text">
+             <string>2025/1/15</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="rules_version_QW" native="true">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(240, 240, 240);
+border-radius: 10px;
+</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_13">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>161</width>
+           <height>91</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="rules_version_QV">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>15</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="rules_version_title">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>黑体</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(145, 146, 152);</string>
+            </property>
+            <property name="text">
+             <string>规则版本</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="rules_version_state">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>黑体</family>
+              <pointsize>12</pointsize>
+              <underline>false</underline>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(255, 81, 105);</string>
+            </property>
+            <property name="text">
+             <string>1.0.0</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="rules_nums_QW" native="true">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(240, 240, 240);
+border-radius: 10px;
+</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_14">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>161</width>
+           <height>91</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="rules_nums_QV">
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>15</number>
+          </property>
+          <property name="rightMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>15</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="rules_nums_title">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>黑体</family>
+              <pointsize>9</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(145, 146, 152);</string>
+            </property>
+            <property name="text">
+             <string>决策数量</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="rules_nums_value">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>黑体</family>
+              <pointsize>12</pointsize>
+              <underline>false</underline>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(255, 81, 105);</string>
+            </property>
+            <property name="text">
+             <string>37</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QLineEdit" name="rules_path_QL">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>210</y>
+       <width>611</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>文泉驿微米黑</family>
+       <pointsize>14</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit {
+    border: none; /* 隐藏原始边框 */
+    background-color: rgb(240, 240, 240); /* 背景颜色 */
+    color: rgb(58, 58, 58); /* 字体颜色 */
+    border-radius: 20px; /* 圆角半径 */
+    padding: 0px 40px; /* 向外扩展 40 像素空间 */
+    height: 30px; /* 设置控件高度 */
+    margin: 0; /* 防止额外的外边距 */
+}
+
+QLineEdit::focus {
+    outline: 2px solid rgb(0, 193, 139); /* 焦点状态的边框 */
+    background-color: rgb(250, 250, 250); /* 焦点状态的背景颜色 */
+}
+</string>
+     </property>
+     <property name="text">
+      <string>/home/user/documents/rules/rule.json</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="refresh_rules_QP">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>300</y>
+       <width>161</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>文泉驿微米黑</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    border-radius: 10px; /* 圆角半径 */
+    border: 2px solid rgb(15, 114, 239); /* 默认边框颜色 */
+    background-color: white; /* 默认背景颜色 */
+    color: rgb(15, 114, 239); /* 默认文字颜色 */
+    padding: 5px 10px; /* 内边距，调整按钮内容位置 */
+}
+
+QPushButton:hover {
+    background-color: rgb(127, 176, 255); /* 鼠标悬停时背景颜色 */
+    color: rgb(15, 114, 239);; /* 悬停时文字颜色 */
+    border-color: rgb(15, 114, 239);; /* 悬停时边框颜色 */
+}
+
+QPushButton:pressed {
+    background-color: rgb(15, 114, 239); /* 按下时背景颜色 */
+    color: white; /* 按下时文字颜色 */
+    border-color: rgb(15, 114, 239); /* 按下时边框颜色 */
+}
+</string>
+     </property>
+     <property name="text">
+      <string>状态刷新</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="reload_rules_QP">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>300</y>
+       <width>161</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>文泉驿微米黑</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    border-radius: 10px; /* 圆角半径 */
+    border: 2px solid rgb(15, 114, 239); /* 默认边框颜色 */
+    background-color: white; /* 默认背景颜色 */
+    color: rgb(15, 114, 239); /* 默认文字颜色 */
+    padding: 5px 10px; /* 内边距，调整按钮内容位置 */
+}
+
+QPushButton:hover {
+    background-color: rgb(127, 176, 255); /* 鼠标悬停时背景颜色 */
+    color: rgb(15, 114, 239);; /* 悬停时文字颜色 */
+    border-color: rgb(15, 114, 239);; /* 悬停时边框颜色 */
+}
+
+QPushButton:pressed {
+    background-color: rgb(15, 114, 239); /* 按下时背景颜色 */
+    color: white; /* 按下时文字颜色 */
+    border-color: rgb(15, 114, 239); /* 按下时边框颜色 */
+}
+</string>
+     </property>
+     <property name="text">
+      <string>规则重载</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="rules_path_tips">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>260</y>
+       <width>331</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <family>文泉驿微米黑</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(145, 146, 152);</string>
+     </property>
+     <property name="text">
+      <string>说明:使用规则重载时，需要填写绝对路径</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="goal_pose_debug_QW" native="true">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>650</y>
+      <width>691</width>
+      <height>221</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(243, 246, 249);
+border-radius: 25px;
+</string>
+    </property>
+    <widget class="QLabel" name="goal_pose_title">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>201</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <family>文泉驿微米黑</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(100, 100, 100);</string>
+     </property>
+     <property name="text">
+      <string>航点调试</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget_5">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>110</y>
+       <width>343</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="goal_pose_QH">
+      <item>
+       <widget class="QLineEdit" name="goal_pose_X">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>文泉驿微米黑</family>
+          <pointsize>10</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLineEdit {
+    border: none; /* 隐藏原始边框 */
+    background-color: rgb(240, 240, 240); /* 背景颜色 */
+    color: rgb(58, 58, 58); /* 字体颜色 */
+    border-radius: 20px; /* 圆角半径 */
+    padding: 0px 25px; /* 向外扩展 40 像素空间 */
+    height: 30px; /* 设置控件高度 */
+    margin: 0; /* 防止额外的外边距 */
+}
+
+QLineEdit::focus {
+    outline: 2px solid rgb(0, 193, 139); /* 焦点状态的边框 */
+    background-color: rgb(250, 250, 250); /* 焦点状态的背景颜色 */
+}
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="goal_pose_Y">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>文泉驿微米黑</family>
+          <pointsize>10</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLineEdit {
+    border: none; /* 隐藏原始边框 */
+    background-color: rgb(240, 240, 240); /* 背景颜色 */
+    color: rgb(58, 58, 58); /* 字体颜色 */
+    border-radius: 20px; /* 圆角半径 */
+    padding: 0px 25px; /* 向外扩展 40 像素空间 */
+    height: 30px; /* 设置控件高度 */
+    margin: 0; /* 防止额外的外边距 */
+}
+
+QLineEdit::focus {
+    outline: 2px solid rgb(0, 193, 139); /* 焦点状态的边框 */
+    background-color: rgb(250, 250, 250); /* 焦点状态的背景颜色 */
+}
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="goal_pose_YAW">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>文泉驿微米黑</family>
+          <pointsize>10</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLineEdit {
+    border: none; /* 隐藏原始边框 */
+    background-color: rgb(240, 240, 240); /* 背景颜色 */
+    color: rgb(58, 58, 58); /* 字体颜色 */
+    border-radius: 20px; /* 圆角半径 */
+    padding: 0px 25px; /* 向外扩展 40 像素空间 */
+    height: 30px; /* 设置控件高度 */
+    margin: 0; /* 防止额外的外边距 */
+}
+
+QLineEdit::focus {
+    outline: 2px solid rgb(0, 193, 139); /* 焦点状态的边框 */
+    background-color: rgb(250, 250, 250); /* 焦点状态的背景颜色 */
+}
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QLabel" name="goal_pose_tips">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>70</y>
+       <width>331</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <family>文泉驿微米黑</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(145, 146, 152);</string>
+     </property>
+     <property name="text">
+      <string>说明:分别对应X值，Y值 与 YAW偏转角</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget_6">
+     <property name="geometry">
+      <rect>
+       <x>400</x>
+       <y>110</y>
+       <width>131</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="goal_pose_send_way_QH">
+      <property name="spacing">
+       <number>15</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="goal_pose_send_way_title">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <family>文泉驿微米黑</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(145, 146, 152);</string>
+        </property>
+        <property name="text">
+         <string>直接发送</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSlider" name="goal_pose_send_way_QSL">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>40</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QSlider {
+    background: transparent; /* 滑动条整体背景 */
+}
+
+QSlider::groove:horizontal {
+    height: 10px; /* 滑动槽的高度 */
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 rgb(220, 220, 220), stop:1 rgb(240, 240, 240)); /* 渐变滑动槽颜色 */
+    border-radius: 7px; /* 滑动槽圆角 */
+}
+
+QSlider::handle:horizontal {
+    width: 20px; /* 滑块宽度 */
+    height: 20px; /* 滑块高度 */
+    margin: -5px 0; /* 调整滑块对齐 */
+    background-color: rgb(145, 146, 152);
+    border-radius: 10px; /* 滑块完全圆形 */
+}
+
+QSlider::handle:horizontal:hover {
+	
+	background-color: rgb(15, 114, 239);
+}
+
+QSlider::sub-page:horizontal {
+    
+	
+	background-color: rgb(0, 193, 139);
+    border-radius: 5px; /* 已滑过部分圆角 */
+}
+
+QSlider::add-page:horizontal {
+    background: rgb(220, 220, 220); /* 未滑过部分的颜色 */
+    border-radius: 5px; /* 未滑过部分圆角 */
+}
+</string>
+        </property>
+        <property name="maximum">
+         <number>1</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QPushButton" name="goal_pose_send_QP">
+     <property name="geometry">
+      <rect>
+       <x>550</x>
+       <y>113</y>
+       <width>121</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>文泉驿微米黑</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    border-radius: 10px; /* 圆角半径 */
+    border: 2px solid rgb(240, 240, 240); /* 默认边框颜色 */
+    background-color: rgb(240, 240, 240); /* 默认背景颜色 */
+    color: rgb(145, 146, 152); /* 默认文字颜色 */
+    padding: 5px 10px; /* 内边距，调整按钮内容位置 */
+}
+
+QPushButton:hover {
+    background-color: rgb(127, 176, 255); /* 鼠标悬停时背景颜色 */
+    color: rgb(15, 114, 239);; /* 悬停时文字颜色 */
+    border-color: rgb(15, 114, 239);; /* 悬停时边框颜色 */
+}
+
+QPushButton:pressed {
+    background-color: rgb(15, 114, 239); /* 按下时背景颜色 */
+    color: white; /* 按下时文字颜色 */
+    border-color: rgb(15, 114, 239); /* 按下时边框颜色 */
+}
+</string>
+     </property>
+     <property name="text">
+      <string>发送</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="goal_pose_send_way_tips">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>170</y>
+       <width>641</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <family>文泉驿微米黑</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(145, 146, 152);</string>
+     </property>
+     <property name="text">
+      <string>说明:默认先转发给决策节点作为最高优先级任务，若是直接发送直接发送导航请求</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="datadebug_QW" native="true">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>410</y>
+      <width>691</width>
+      <height>221</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(243, 246, 249);
+border-radius: 25px;
+</string>
+    </property>
+    <widget class="QWidget" name="horizontalLayoutWidget_4">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>140</y>
+       <width>499</width>
+       <height>80</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="debug_swtich_QH">
+      <property name="spacing">
+       <number>40</number>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" name="debug_send_QH">
+        <property name="spacing">
+         <number>40</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="debug_send_title">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <family>文泉驿微米黑</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(145, 146, 152);</string>
+          </property>
+          <property name="text">
+           <string>发送模拟数据</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSlider" name="debug_send_QSL">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>40</width>
+            <height>16666</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QSlider {
+    background: transparent; /* 滑动条整体背景 */
+}
+
+QSlider::groove:horizontal {
+    height: 10px; /* 滑动槽的高度 */
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 rgb(220, 220, 220), stop:1 rgb(240, 240, 240)); /* 渐变滑动槽颜色 */
+    border-radius: 7px; /* 滑动槽圆角 */
+}
+
+QSlider::handle:horizontal {
+    width: 20px; /* 滑块宽度 */
+    height: 20px; /* 滑块高度 */
+    margin: -5px 0; /* 调整滑块对齐 */
+    background-color: rgb(15, 114, 239);
+    border-radius: 10px; /* 滑块完全圆形 */
+}
+
+QSlider::handle:horizontal:hover {
+	
+	background-color: rgb(15, 114, 239);
+}
+
+QSlider::sub-page:horizontal {
+    
+	
+	background-color: rgb(0, 193, 139);
+    border-radius: 5px; /* 已滑过部分圆角 */
+}
+
+QSlider::add-page:horizontal {
+    background: rgb(220, 220, 220); /* 未滑过部分的颜色 */
+    border-radius: 5px; /* 未滑过部分圆角 */
+}
+</string>
+          </property>
+          <property name="maximum">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="debug_listen_QH">
+        <property name="spacing">
+         <number>40</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="debug_listen_title">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <family>文泉驿微米黑</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(145, 146, 152);</string>
+          </property>
+          <property name="text">
+           <string>监听决策数据</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSlider" name="debug_listen_QSL">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>40</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QSlider {
+    background: transparent; /* 滑动条整体背景 */
+}
+
+QSlider::groove:horizontal {
+    height: 10px; /* 滑动槽的高度 */
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 rgb(220, 220, 220), stop:1 rgb(240, 240, 240)); /* 渐变滑动槽颜色 */
+    border-radius: 7px; /* 滑动槽圆角 */
+}
+
+QSlider::handle:horizontal {
+    width: 20px; /* 滑块宽度 */
+    height: 20px; /* 滑块高度 */
+    margin: -5px 0; /* 调整滑块对齐 */
+    background-color: rgb(15, 114, 239);
+    border-radius: 10px; /* 滑块完全圆形 */
+}
+
+QSlider::handle:horizontal:hover {
+	
+	background-color: rgb(15, 114, 239);
+}
+
+QSlider::sub-page:horizontal {
+    
+	
+	background-color: rgb(0, 193, 139);
+    border-radius: 5px; /* 已滑过部分圆角 */
+}
+
+QSlider::add-page:horizontal {
+    background: rgb(220, 220, 220); /* 未滑过部分的颜色 */
+    border-radius: 5px; /* 未滑过部分圆角 */
+}
+</string>
+          </property>
+          <property name="maximum">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QLineEdit" name="pub_topic_QL">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>90</y>
+       <width>611</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>文泉驿微米黑</family>
+       <pointsize>14</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit {
+    border: none; /* 隐藏原始边框 */
+    background-color: rgb(240, 240, 240); /* 背景颜色 */
+    color: rgb(58, 58, 58); /* 字体颜色 */
+    border-radius: 20px; /* 圆角半径 */
+    padding: 0px 40px; /* 向外扩展 40 像素空间 */
+    height: 30px; /* 设置控件高度 */
+    margin: 0; /* 防止额外的外边距 */
+}
+
+QLineEdit::focus {
+    outline: 2px solid rgb(0, 193, 139); /* 焦点状态的边框 */
+    background-color: rgb(250, 250, 250); /* 焦点状态的背景颜色 */
+}
+</string>
+     </property>
+     <property name="text">
+      <string>/referee/msg</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="datadebug_title">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>0</y>
+       <width>201</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <family>文泉驿微米黑</family>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(100, 100, 100);</string>
+     </property>
+     <property name="text">
+      <string>数据调试</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="debug_tips">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>50</y>
+       <width>511</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <family>文泉驿微米黑</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(145, 146, 152);</string>
+     </property>
+     <property name="text">
+      <string>说明:可以通过发送模拟数据验证决策，在下方填写合适的话题名称</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

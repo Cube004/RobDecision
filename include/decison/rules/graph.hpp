@@ -16,7 +16,7 @@ namespace decision {
     };
 
     enum NodeMode {
-        WAYPOINT,
+        NAVIGATION,
         CHASE,
         STAY
     };
@@ -69,7 +69,8 @@ class Graph {
         void AddRule(Json::Value rule, rules::DecisionRules &rules);
         std::vector<int> nextNode(roborts_msgs::driver *data);
         int matchEdge(roborts_msgs::driver *data, std::vector<Edge> *edges);
-        std::string ParseJsonToString(const Json::Value& jsonValue);
+        std::string ParseJsonToString(const Json::Value& jsonValue, std::string value = "null");
+        void Debuginfo();
     };
 
     // 初始化图
@@ -86,6 +87,7 @@ class Graph {
             std::cerr << "规则加载失败: " << e.what() << '\n';
             return false;
         }
+        
         return true;
     }
 
@@ -102,7 +104,6 @@ class Graph {
         Json::Value edges = root["Edges"];
         // 添加节点
         for (auto& node : nodes) {
-            std::cout << "node: " << node << std::endl;
             this->AddNode(node);
         }
         // 添加条件跳转边
@@ -122,19 +123,7 @@ class Graph {
         if (this->rootNode_id == -1) {
             throw std::runtime_error("rootNode_id is not set");
         }
-
-        for (auto& node : nodeList) {
-            std::cout << "node_id: " << node.second.node_id << " edgesNumber: " << node.second.edges.size() << std::endl;
-        }
-        for (auto& edge : edgeList) {
-            std::cout << "edge_id: " << edge.second.edge_id << " nodeIn_id: " << edge.second.nodeIn_id << " nodeOut_id: " << edge.second.nodeOut_id << " weight: " << edge.second.weight << std::endl;
-            for (const auto& condition : edge.second.rules.conditions) {
-                if (condition.match_type == rules::MatchType::IN_RANGE)
-                {
-                    std::cout << "condition_type: " << condition.type << " min_value: " << condition.min_value << " max_value: " << condition.max_value << " match_type: " << condition.match_type << std::endl;
-                }
-            }
-        }
+        this->Debuginfo();
     }
 
 
@@ -144,22 +133,24 @@ class Graph {
         std::string node_id = node["id"].asString();
         node_id.erase(0, 5);
         newNode.node_id = std::stoi(node_id);
-        std::cout << "node_id: " << node_id << std::endl;
+        
+        // 节点类型
         if (node["taskConfig"]["nodeType"].asString() == "task") {
             newNode.type = NodeType::TASK;
         } else if (node["taskConfig"]["nodeType"].asString() == "root") {
             newNode.type = NodeType::ROOT;
             this->rootNode_id = newNode.node_id;
         }
-
-        if (node["taskConfig"]["mode"].asString() == "waypoint") {
-            newNode.mode = NodeMode::WAYPOINT;
+        // 节点模式
+        if (node["taskConfig"]["mode"].asString() == "navigation") {
+            newNode.mode = NodeMode::NAVIGATION;
         } else if (node["taskConfig"]["mode"].asString() == "chase") {
             newNode.mode = NodeMode::CHASE;
         } else if (node["taskConfig"]["mode"].asString() == "stay") {
             newNode.mode = NodeMode::STAY;
         }
 
+        // 航点坐标
         std::string waypointStr = this->ParseJsonToString(node["taskConfig"]["waypoint"]);
         if (waypointStr != "null")
         {
@@ -173,61 +164,52 @@ class Graph {
             }
 
             // 访问解析后的 waypoint 对象
-            std::cout << "waypointValue: " << waypointValue << std::endl;
             newNode.waypoint.pose.position.x = waypointValue["x"].asFloat();
             newNode.waypoint.pose.position.y = waypointValue["y"].asFloat();
+        }else{
+            newNode.waypoint.pose.position.x = -1;
+            newNode.waypoint.pose.position.y = -1;
         }
 
         newNode.last_time = ros::Time::now();
 
-
-        std::string resetTimeStr = this->ParseJsonToString(node["taskConfig"]["resetTime"]);
-
-        if (resetTimeStr != "null")
-        {
-            std::cout << "resetTimeStr: " << resetTimeStr << std::endl;
-            newNode.resetTime = std::stof(resetTimeStr);
-        }else{
-            newNode.resetTime = -1;
-        }
+        newNode.resetTime = std::stoi(this->ParseJsonToString(node["taskConfig"]["resetTime"], "-1"));
         nodeList[newNode.node_id] = newNode;
     }
 
     void Graph::AddEdge(Json::Value edge){
         Edge newEdge;
-        std::cout << "edge: " << edge << std::endl;
         std::string edge_id = edge["id"].asString();
         std::string nodeIn = edge["condition"]["nodeId"]["nodeIn"].asString();
         std::string nodeOut = edge["condition"]["nodeId"]["nodeOut"].asString();
-        std::cout << "edge_id: " << edge_id << " nodeIn: " << nodeIn << " nodeOut: " << nodeOut << std::endl;
         edge_id.erase(0, 5);
         nodeIn.erase(0, 5);
         nodeOut.erase(0, 5);
-        std::cout << "edge_id: " << edge_id << " nodeIn: " << nodeIn << " nodeOut: " << nodeOut << std::endl;
         newEdge.edge_id = std::stoi(edge_id);
         newEdge.nodeIn_id = std::stoi(nodeIn);
         newEdge.nodeOut_id = std::stoi(nodeOut);
 
-        std::cout << "weight: " << edge["condition"]["weight"].asString() << std::endl;
         newEdge.weight = edge["condition"]["weight"].asInt();
-        for (const auto& condition : edge["condition"]["condition"]) {
+        for (auto& condition : edge["condition"]["condition"]) {
             this->AddRule(condition, newEdge.rules);
         }
         edgeList[newEdge.edge_id] = newEdge;
     }
 
     void Graph::AddRule(Json::Value condition, rules::DecisionRules &rules){
-        for (size_t i = 0; i < rules.conditions.size(); i++)
-        {
-            if (condition["type"].asString() == rules.conditions[i].type)
-            {
-                rules.conditions[i].max_value = condition["max"].asFloat();
-                rules.conditions[i].min_value = condition["min"].asFloat();
-                rules.conditions[i].match_type = rules::MatchType::IN_RANGE;
-                rules.condition_count++;
-                break;
-            }
-        }
+        int max_value = condition["max"].asInt();
+        int min_value = condition["min"].asInt();
+        rules::MatchType match_type = rules::MatchType::IN_RANGE;
+
+        std::string type = condition["datetype"].asString();
+        int metric_type = condition["metricType"].asInt();
+
+        int temporal_scope = stoi(this->ParseJsonToString(condition["temporalScope"]["type"], "0"));
+        int scope_value = stoi(this->ParseJsonToString(condition["temporalScope"]["rollingWindow"], "0"));
+        
+        rules::RuleCondition rule_condition(type);
+        rule_condition.change_value(min_value, max_value, match_type, metric_type, temporal_scope, scope_value);
+        rules.add_condition(rule_condition);
     }
 
     // 获取下一个节点
@@ -244,15 +226,15 @@ class Graph {
 
     // 匹配边
     int Graph::matchEdge(roborts_msgs::driver *data, std::vector<Edge> *edges){
-        for (const auto& edge : *edges) {
-            if (rules::match_rules(edge.rules, data)) {
-                return edge.nodeOut_id;
-            }
-        }
-        return -1;
+        // for (const auto& edge : *edges) {
+        //     if (rules::match_rules(edge.rules, data)) {
+        //         return edge.nodeOut_id;
+        //     }
+        // }
+        // return -1;
     }
 
-    std::string Graph::ParseJsonToString(const Json::Value& jsonValue) 
+    std::string Graph::ParseJsonToString(const Json::Value& jsonValue, std::string value) 
     {
         Json::StreamWriterBuilder writerBuilder;
         writerBuilder["indentation"] = ""; // 紧凑格式
@@ -267,11 +249,20 @@ class Graph {
                 
                 // 验证 JSON 有效性
                 if (jsonValue.isNull()) {
-                    return "null";  // 明确处理 null 值
+                    return value != "null" ? value : "null";  // 明确处理 null 值
                 }
                 
                 writer->write(jsonValue, &oss);
-                return oss.str();
+                std::string result = oss.str();
+
+                // 如果 jsonValue 是字符串类型，去除两侧的双引号
+                if (jsonValue.isString()) {
+                    if (result.size() >= 2 && result.front() == '"' && result.back() == '"') {
+                        result = result.substr(1, result.size() - 2);
+                    }
+                }
+
+                return result;
             }
         } 
         catch (const Json::Exception& e) {
@@ -284,7 +275,36 @@ class Graph {
             // 捕获所有其他异常
         }
 
-        return "null";  // 统一异常出口
+        return value;  // 统一异常出口
+    }
+
+    void Graph::Debuginfo(){
+        for (const auto& node : this->nodeList) {
+            std::cout << "----------------START---------------" << std::endl;
+            std::cout << "node_id: " << node.second.node_id << std::endl;
+            std::cout << "type: " << node.second.type << std::endl;
+            std::cout << "mode: " << node.second.mode << std::endl;
+            std::cout << "waypoint: " << node.second.waypoint.pose.position.x << ", " << node.second.waypoint.pose.position.y << std::endl;
+            std::cout << "resetTime: " << node.second.resetTime << std::endl;
+            for (const auto& edge : node.second.edges) {
+                std::cout << "--------------------------------" << std::endl;
+                std::cout << "  edge_id: " << edge.edge_id << std::endl;
+                std::cout << "  nodeIn_id: " << edge.nodeIn_id << std::endl;
+                std::cout << "  nodeOut_id: " << edge.nodeOut_id << std::endl;
+                std::cout << "  weight: " << edge.weight << std::endl;
+                for (const auto& rule : edge.rules.conditions) {
+                    std::cout << "--------------------------------" << std::endl;
+                    std::cout << "      type: " << rule.datatype << std::endl;
+                    std::cout << "      min_value: " << rule.min_value << std::endl;
+                    std::cout << "      max_value: " << rule.max_value << std::endl;
+                    std::cout << "      match_type: " << rule.match_type << std::endl;
+                    std::cout << "      metric_type: " << rule.metric_type << std::endl;
+                    std::cout << "      temporal_scope: " << rule.temporal_scope << std::endl;
+                    std::cout << "      scope_value: " << rule.scope_value << std::endl;
+                }
+            }
+            std::cout << "----------------END-----------------" << std::endl;
+        }
     }
 }
 

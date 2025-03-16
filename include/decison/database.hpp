@@ -6,7 +6,6 @@
 #include <atomic>
 #include <shared_mutex>
 
-// ROS1
 #include <ros/ros.h>
 #include <roborts_msgs/driver.h>
 
@@ -49,26 +48,6 @@ namespace database
         DECREASE = 2,
         SUM = 3
     };
-
-    class Database{
-        private:
-            DataContainer dataContainer_;
-            
-            // 自旋锁 (使用std::atomic_flag实现)
-            std::atomic_flag spinlock = ATOMIC_FLAG_INIT;
-            
-        public:
-            void update_data(roborts_msgs::driver msg);
-            bool check_data(data_type datatype, ros::Time end, ros::Duration duration, metricType type, temporalScope scope, int min_value = 0, int max_value = 0);
-        private:
-            bool confirm_metric_compliance(data_type datatype, ros::Time end, ros::Duration duration, metricType type, temporalScope scope, int min_value = 0, int max_value = 0);
-            void preprocess_data(data &data, ros::Time stamp, int value);
-            int get_duration_data(data &data, ros::Time end, ros::Duration duration, prefixType type);
-            int get_current_data(data &data);
-            bool hasValueDuring(data &data, ros::Time end, ros::Duration duration, int min_value = 0, int max_value = 0);
-            std::pair<int, int> Time_get_index(data &data, ros::Time end, ros::Duration duration);
-            data &get_data_base(data_type datatype);
-    };
     enum data_type{
         GAME_PROGRESS,
         STAGE_REMAIN_TIME,
@@ -99,6 +78,26 @@ namespace database
         data armor_id;
         data rfid_status;
     };
+    class Database{
+        private:
+            DataContainer dataContainer_;
+            
+            // 自旋锁 (使用std::atomic_flag实现)
+            std::atomic_flag spinlock = ATOMIC_FLAG_INIT;
+            
+        public:
+            void update_data(roborts_msgs::driver msg);
+            bool check_data(data_type datatype, ros::Time end, ros::Duration duration, metricType type, int min_value = 0, int max_value = 0);
+        private:
+            bool confirm_metric_compliance(data_type datatype, ros::Time end, ros::Duration duration, metricType type, int min_value = 0, int max_value = 0);
+            void preprocess_data(data &data, ros::Time stamp, int value);
+            int get_duration_data(data &data, ros::Time end, ros::Duration duration, prefixType type);
+            int get_current_data(data &data);
+            bool hasValueDuring(data &data, ros::Time end, ros::Duration duration, int min_value = 0, int max_value = 0);
+            std::pair<int, int> Time_get_index(data &data, ros::Time end, ros::Duration duration);
+            data &get_data_base(data_type datatype);
+    };
+
     data &Database::get_data_base(data_type datatype){
         // 获取数据
         switch (datatype){
@@ -142,7 +141,10 @@ namespace database
     void Database::preprocess_data(data &data, ros::Time stamp, int value){
         // 预处理数据
         if (!data.raw_data.empty()){
-            if (stamp <= data.timestamp.back())return;
+            if (stamp <= data.timestamp.back()){
+                std::cout << "stamp <= data.timestamp.back()" << std::endl;
+                return;
+            }
         }// 避免时间戳回退
 
         if (data.raw_data.empty()){
@@ -167,7 +169,7 @@ namespace database
     int Database::get_duration_data(data &data, ros::Time end, ros::Duration duration, prefixType type){
         // 获取一段时间内数据的变化量
         if (data.raw_data.empty())throw std::runtime_error("error: raw_data is empty");
-        if (end > data.timestamp.back())throw std::runtime_error("error: end is out of range");
+        // if (end > data.timestamp.back())throw std::runtime_error("error: end is out of range");
         if (end - duration < data.timestamp.front())throw std::runtime_error("error: duration is out of range");
 
         std::pair<int, int> index = Time_get_index(data, end, duration);
@@ -189,7 +191,7 @@ namespace database
     bool Database::hasValueDuring(data &data, ros::Time end, ros::Duration duration, int min_value, int max_value){
         // 判断在一段时间内是否有数据
         if (data.raw_data.empty())throw std::runtime_error("error: raw_data is empty");
-        if (end > data.timestamp.back())throw std::runtime_error("error: end is out of range");
+        // if (end > data.timestamp.back())throw std::runtime_error("error: end is out of range");
         if (end - duration < data.timestamp.front())throw std::runtime_error("error: duration is out of range");
         if (min_value == max_value)
         {// 利用哈希表快速查找
@@ -238,10 +240,10 @@ namespace database
     }
 
 
-    bool Database::confirm_metric_compliance(data_type datatype, ros::Time end, ros::Duration duration, metricType type, temporalScope scope, int min_value, int max_value){
+    bool Database::confirm_metric_compliance(data_type datatype, ros::Time end, ros::Duration duration, metricType type, int min_value, int max_value){
         try {
             data &data = get_data_base(datatype);
-        
+            if (data.raw_data.empty()) return false;
             if (type == CURRENT_VALUE)
             {
                 int result = get_current_data(data);
@@ -266,15 +268,15 @@ namespace database
             }
         } catch (const std::runtime_error& e) {
             std::cout << e.what() << std::endl;
-            throw std::runtime_error("error: not found data");
+            std::cout << "error: not found data" << std::endl;
         }
         return false;
     }
 
-    bool Database::check_data(data_type datatype, ros::Time end, ros::Duration duration, metricType type, temporalScope scope, int min_value, int max_value){
+    bool Database::check_data(data_type datatype, ros::Time end, ros::Duration duration, metricType type, int min_value, int max_value){
         // 使用自旋锁
         while (spinlock.test_and_set(std::memory_order_acquire));
-        bool result = confirm_metric_compliance(datatype, end, duration, type, scope, min_value, max_value);
+        bool result = confirm_metric_compliance(datatype, end, duration, type, min_value, max_value);
         // 释放自旋锁
         spinlock.clear(std::memory_order_release);
         return result;

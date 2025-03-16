@@ -9,7 +9,7 @@
 #include "geometry_msgs/PoseStamped.h"
 #include "jsoncpp/json/json.h"
 
-namespace decision {
+namespace rules {
     enum NodeType {
         ROOT,
         TASK
@@ -37,18 +37,26 @@ namespace decision {
         float resetTime;
         
         bool finish;
-        ros::Time last_time;// 上一次到达该节点的时间
-
-        bool GetState(){
+        ros::Time last_check_time;// 上一次检查该节点的时间
+        ros::Time start_time;
+        ros::Time end_time;
+        bool get_finish(){
+            if (this->type == NodeType::ROOT || this->mode == NodeMode::CHASE || this->mode == NodeMode::STAY){
+                this->finish = true;
+                return this->finish;
+            }
+            
             if (resetTime == -1) return finish;
             // 非一次性任务超过指定时间未到达该节点认为是冷数据, 一段时间后重置完成状态
             // (未到达该节点也可理解为任务决策在上一段时间偏离转而执行其他路线上的节点)
-            if (finish && ros::Time::now() - last_time > ros::Duration(resetTime)) {
-                finish = false;
+            if (finish && ros::Time::now() - last_check_time > ros::Duration(resetTime)) {
+                this->end_time = ros::Time(0);
+                this->finish = false;
                 return false;
             }else {
                 return finish;
             }
+            last_check_time = ros::Time::now();// 更新检查时间
         }
         std::vector<Edge> edges;
     };
@@ -61,14 +69,11 @@ class Graph {
         std::unordered_map<int, Edge> edgeList;
         std::string decisionJsonStr;
         int rootNode_id = -1;
-        // Graph();
         bool init(const std::string& decisionJsonStr);
         void AddNode(Json::Value node);
         void AddEdge(Json::Value edge);
         void loadJson(std::string decisionJsonStr);
         void AddRule(Json::Value rule, rules::DecisionRules &rules);
-        std::vector<int> nextNode(roborts_msgs::driver *data);
-        int matchEdge(roborts_msgs::driver *data, std::vector<Edge> *edges);
         std::string ParseJsonToString(const Json::Value& jsonValue, std::string value = "null");
         void Debuginfo();
     };
@@ -93,6 +98,8 @@ class Graph {
 
     // 加载json文件
     void Graph::loadJson(std::string decisionJsonStr){
+        this->nodeList.clear();
+        this->edgeList.clear();
         Json::Value root;
         Json::Reader reader;
         bool parsingSuccessful = reader.parse(decisionJsonStr, root);
@@ -171,7 +178,7 @@ class Graph {
             newNode.waypoint.pose.position.y = -1;
         }
 
-        newNode.last_time = ros::Time::now();
+        newNode.last_check_time = ros::Time::now();
 
         newNode.resetTime = std::stoi(this->ParseJsonToString(node["taskConfig"]["resetTime"], "-1"));
         nodeList[newNode.node_id] = newNode;
@@ -210,28 +217,6 @@ class Graph {
         rules::RuleCondition rule_condition(type);
         rule_condition.change_value(min_value, max_value, match_type, metric_type, temporal_scope, scope_value);
         rules.add_condition(rule_condition);
-    }
-
-    // 获取下一个节点
-    std::vector<int> Graph::nextNode(roborts_msgs::driver *data){
-        std::vector<int> targetNode_path;
-        int targetNode_id = -1;
-        targetNode_id = matchEdge(data, &this->nodeList[this->rootNode_id].edges);
-        while (this->matchEdge(data, &this->nodeList[targetNode_id].edges) != -1 && this->nodeList[targetNode_id].GetState() == false) {
-            targetNode_path.push_back(targetNode_id);
-            targetNode_id = matchEdge(data, &this->nodeList[targetNode_id].edges);
-        }
-        return targetNode_path;
-    }
-
-    // 匹配边
-    int Graph::matchEdge(roborts_msgs::driver *data, std::vector<Edge> *edges){
-        // for (const auto& edge : *edges) {
-        //     if (rules::match_rules(edge.rules, data)) {
-        //         return edge.nodeOut_id;
-        //     }
-        // }
-        // return -1;
     }
 
     std::string Graph::ParseJsonToString(const Json::Value& jsonValue, std::string value) 

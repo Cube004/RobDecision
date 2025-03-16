@@ -5,6 +5,7 @@
 #include <vector>
 #include <functional>
 #include "roborts_msgs/driver.h"
+#include "decison/database.hpp"
 
 namespace rules {
     // 匹配类型枚举
@@ -36,7 +37,21 @@ namespace rules {
         temporalScope temporal_scope; // 时间范围
         int scope_value;          // 时间范围值
         std::string datatype;         // 条件名称
-        RuleCondition(std::string datatype) : min_value(0), max_value(0), match_type(IGNORE), metric_type(CURRENT_VALUE), temporal_scope(FULL_CYCLE), scope_value(0), datatype(datatype) {}
+        database::data_type data_type;
+        RuleCondition(std::string datatype) : min_value(0), max_value(0), match_type(IGNORE), metric_type(CURRENT_VALUE), temporal_scope(FULL_CYCLE), scope_value(0), datatype(datatype) {
+            if(datatype == "game_progress") data_type = database::GAME_PROGRESS;
+            else if(datatype == "stage_remain_time") data_type = database::STAGE_REMAIN_TIME;
+            else if(datatype == "own_robot_HP") data_type = database::OWN_ROBOT_HP;
+            else if(datatype == "own_base_HP") data_type = database::OWN_BASE_HP;
+            else if(datatype == "enemy_base_HP") data_type = database::ENEMY_BASE_HP;
+            else if(datatype == "event_data") data_type = database::EVENT_DATA;
+            else if(datatype == "current_HP") data_type = database::CURRENT_HP;
+            else if(datatype == "shoot_num") data_type = database::SHOOT_NUM;
+            else if(datatype == "vision_status") data_type = database::VISION_STATUS;
+            else if(datatype == "HP_deduction_reason") data_type = database::HP_DEDUCTION_REASON;
+            else if(datatype == "armor_id") data_type = database::ARMOR_ID;
+            else if(datatype == "rfid_status") data_type = database::RFID_STATUS;
+        }
         void change_value(int min_value, int max_value, int match_type, int metric_type, int temporal_scope, int scope_value){
             this->min_value = min_value;
             this->max_value = max_value;

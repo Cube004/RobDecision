@@ -71,6 +71,7 @@ void DebugPage::loop(){
     while(ros::ok()){
         {
             std::lock_guard<std::mutex> lock(mutex_); //加锁
+            simdata.header.stamp = ros::Time::now();
             if (this->pub_simdata != nullptr) this->pub_simdata->publish(simdata);  //发布
         }
         ros::Duration(0.1).sleep();
@@ -128,6 +129,7 @@ void DebugPage::updateInfo(const roborts_msgs::driver::ConstPtr &msg){
 
 void DebugPage::updateSimdata(){
     std::lock_guard<std::mutex> lock(mutex_);
+    simdata.header.stamp = ros::Time::now();
     simdata.armor_id = this->Sim_Data_armor_id_QL->text().toInt();
     simdata.enemy_base_HP = this->Sim_Data_enemy_base_HP_QL->text().toInt();
     simdata.event_data = this->Sim_Data_event_data_QL->text().toInt();

@@ -12,6 +12,10 @@ find_package(catkin REQUIRED COMPONENTS
   move_base_msgs
   actionlib
   roborts_msgs
+  geometry_msgs
+  std_msgs
+  tf2_ros
+  tf2_geometry_msgs
 )
 find_package(Qt5Widgets REQUIRED)
 find_package(PkgConfig REQUIRED)
@@ -130,9 +134,6 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/include/decison/decison.hpp
-#   src/${PROJECT_NAME}/include/decison/rules/rules.hpp
-#   src/${PROJECT_NAME}/include/decison/rules/graph.hpp
 # )
 
 ## Add cmake target dependencies of the library

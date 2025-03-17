@@ -51,6 +51,7 @@ namespace rules {
             else if(datatype == "HP_deduction_reason") data_type = database::HP_DEDUCTION_REASON;
             else if(datatype == "armor_id") data_type = database::ARMOR_ID;
             else if(datatype == "rfid_status") data_type = database::RFID_STATUS;
+            else if(datatype == "last_task_id") data_type = database::LAST_TASK_ID;
         }
         void change_value(int min_value, int max_value, int match_type, int metric_type, int temporal_scope, int scope_value){
             this->min_value = min_value;

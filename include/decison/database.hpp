@@ -60,7 +60,8 @@ namespace database
         VISION_STATUS,
         HP_DEDUCTION_REASON,
         ARMOR_ID,
-        RFID_STATUS
+        RFID_STATUS,
+        LAST_TASK_ID
     };
 
     struct DataContainer
@@ -77,20 +78,22 @@ namespace database
         data HP_deduction_reason;
         data armor_id;
         data rfid_status;
+        data last_task_id;
     };
     class Database{
         private:
             DataContainer dataContainer_;
-            
+
             // 自旋锁 (使用std::atomic_flag实现)
             std::atomic_flag spinlock = ATOMIC_FLAG_INIT;
             
         public:
             void update_data(roborts_msgs::driver msg);
             bool check_data(data_type datatype, ros::Time end, ros::Duration duration, metricType type, int min_value = 0, int max_value = 0);
+            void update_task_id(int task_id);
         private:
-            bool confirm_metric_compliance(data_type datatype, ros::Time end, ros::Duration duration, metricType type, int min_value = 0, int max_value = 0);
             void preprocess_data(data &data, ros::Time stamp, int value);
+            bool confirm_metric_compliance(data_type datatype, ros::Time end, ros::Duration duration, metricType type, int min_value = 0, int max_value = 0);
             int get_duration_data(data &data, ros::Time end, ros::Duration duration, prefixType type);
             int get_current_data(data &data);
             bool hasValueDuring(data &data, ros::Time end, ros::Duration duration, int min_value = 0, int max_value = 0);
@@ -113,6 +116,7 @@ namespace database
             case HP_DEDUCTION_REASON:return dataContainer_.HP_deduction_reason;
             case ARMOR_ID:return dataContainer_.armor_id;
             case RFID_STATUS:return dataContainer_.rfid_status;
+            case LAST_TASK_ID:return dataContainer_.last_task_id;
             default: throw std::runtime_error("Invalid data type");
         }
     }
@@ -137,7 +141,18 @@ namespace database
         // 释放自旋锁
         spinlock.clear(std::memory_order_release);
     }
-    
+
+    void Database::update_task_id(int task_id){
+        // 使用自旋锁
+        while (spinlock.test_and_set(std::memory_order_acquire));
+        
+        // 更新任务id
+        this->preprocess_data(dataContainer_.last_task_id, ros::Time::now(), task_id);
+
+        // 释放自旋锁
+        spinlock.clear(std::memory_order_release);
+    }
+
     void Database::preprocess_data(data &data, ros::Time stamp, int value){
         // 预处理数据
         if (!data.raw_data.empty()){

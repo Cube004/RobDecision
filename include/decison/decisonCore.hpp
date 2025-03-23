@@ -101,10 +101,15 @@ public:
             for(auto node_id : this->decision_result_.nodepath_){
                 std::cout << " " << node_id << " ";
             }
-            std::cout << std::endl;
+            std::cout << "target_node_id = " << this->decision_result_.target_id_ << std::endl;
             auto& target_node = this->graph_.nodeList[this->decision_result_.target_id_];
             this->database_.update_task_id(target_node->node_id);
             // 根据决策结果执行动作
+            if (target_node->type == rules::NodeType::ROOT)
+            {
+                // 取消所有目标
+                this->move_base_manager_->cancelAllGoal();
+            }
             if(target_node->mode == rules::NodeMode::NAVIGATION){
                 auto result = this->move_base_manager_->createWaypointTask(target_node->node_id, target_node->waypoint);
                 target_node->start_time = result.task_start_time;
@@ -115,7 +120,7 @@ public:
                 this->move_base_manager_->cancelAllGoal();
             }else if(target_node->mode == rules::NodeMode::STAY){
                 // 停留, 暂时不实现
-                // this->move_base_manager_->cancelAllGoal();
+                this->move_base_manager_->cancelAllGoal();
             }
             ros::Rate(10).sleep();
         }

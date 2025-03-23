@@ -119,7 +119,7 @@ void DebugPage::updateInfo(const roborts_msgs::driver::ConstPtr &msg){
 
     //progress栏初始化
     this->progress_stage_remain_time_bar_value->setValue(msg->stage_remain_time);
-    this->progress_own_robot_HP_bar_value->setValue(msg->own_robot_HP);
+    this->progress_own_robot_HP_bar_value->setValue(msg->current_HP);
     this->progress_own_base_HP_bar_value->setValue(msg->own_base_HP);
     this->progress_enemy_base_HP_bar_value->setValue(msg->enemy_base_HP);
     this->progress_shoot_num_bar_value->setValue(msg->shoot_num);

@@ -45,8 +45,27 @@ public:
     }
 
     void cancelAllGoal(){
-        this->client_->cancelAllGoals();
+        std::lock_guard<std::mutex> lock(mutex_);
+        this->sendGoal(this->transform.transform.translation.x, this->transform.transform.translation.y);
         this->waypoint_task_.task_id = -1;
+    }
+
+
+    void sendGoal(float x, float y){
+        move_base_msgs::MoveBaseGoal goal;
+        goal.target_pose.pose.position.x = x;
+        goal.target_pose.pose.position.y = y;
+        goal.target_pose.pose.position.z = 0;
+        goal.target_pose.pose.orientation.w = 1;
+        goal.target_pose.pose.orientation.x = 0;
+        goal.target_pose.pose.orientation.y = 0;
+        goal.target_pose.pose.orientation.z = 0;
+        goal.target_pose.header.frame_id = "map";
+        goal.target_pose.header.stamp = ros::Time::now();
+        if ((abs(current_goal.pose.position.x - x) > 0.01 || abs(current_goal.pose.position.y - y) > 0.01))
+        {
+            this->client_->sendGoal(goal);
+        }   
     }
 
 
@@ -63,20 +82,7 @@ public:
             if (abs(transform.transform.translation.x - goal.pose.position.x) > this->waypoint_task_.tolerance || 
                 abs(transform.transform.translation.y - goal.pose.position.y) > this->waypoint_task_.tolerance)
             {   // 如果当前位置与目标位置的距离大于阈值, 且当前目标点与目标点不一致, 则发送目标点
-                if ((abs(current_goal.pose.position.x - goal.pose.position.x) > 0.01 || abs(current_goal.pose.position.y - goal.pose.position.y) > 0.01))
-                {  
-                    move_base_msgs::MoveBaseGoal goal_msg;
-                    goal_msg.target_pose.pose.position.x = goal.pose.position.x;
-                    goal_msg.target_pose.pose.position.y = goal.pose.position.y;
-                    goal_msg.target_pose.pose.position.z = 0;
-                    goal_msg.target_pose.pose.orientation.w = 1;
-                    goal_msg.target_pose.pose.orientation.x = 0;
-                    goal_msg.target_pose.pose.orientation.y = 0;
-                    goal_msg.target_pose.pose.orientation.z = 0;
-                    goal_msg.target_pose.header.frame_id = "map";
-                    goal_msg.target_pose.header.stamp = ros::Time::now();
-                    client_->sendGoal(goal_msg);
-                }
+                this->sendGoal(goal.pose.position.x, goal.pose.position.y);
                 #ifdef DEBUG
                 std::cout << "send goal" << "id: " << id << "  x: " << goal.pose.position.x << "y: " << goal.pose.position.y << std::endl;
                 #endif
@@ -110,6 +116,7 @@ private:
                 std::lock_guard<std::mutex> lock(mutex_);
                 try{
                     transform = tf_buffer->lookupTransform(frame_id_, child_frame_id_, ros::Time(0));
+                    ros::spinOnce();    
                 }catch(tf2::TransformException &ex){
                     ROS_WARN("%s", ex.what());
                 }
@@ -118,7 +125,6 @@ private:
             std::cout << "transform x: " << transform.transform.translation.x << " y: " << transform.transform.translation.y << std::endl;
             #endif
             ros::Duration(0.04).sleep();
-            ros::spinOnce();
         }
     }
 
